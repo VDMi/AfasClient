@@ -1,0 +1,20 @@
+{
+  "name": "vdmi/AfasClient",
+  "description": "Afas client for an easy soap connection.",
+  "autoload": {
+    "psr-4": {
+      "": "src/"
+    },
+    "require": {
+      "php": ">=5.5.9",
+      "practicalafas": "dev-master",
+      "fergusean/nusoap": "^0.9.5"
+    },
+    "repositories": [
+      {
+        "type": "vcs",
+        "url": "https://github.com/rmuit/PracticalAfas.git"
+      }
+    ]
+  }
+}
