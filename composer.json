@@ -1,5 +1,5 @@
 {
-  "name": "vdmi/AfasClient",
+  "name": "vdmi/afas-client",
   "description": "Afas client for an easy soap connection.",
   "autoload": {
     "psr-4": {
