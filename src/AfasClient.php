@@ -7,12 +7,6 @@ use PracticalAfas\NusoapNtlmClient;
 
 class AfasClient extends NusoapNtlmClient {
 
-  private $options = [];
-  private $data_type = '';
-  private $data_id = '';
-  private $filters = [];
-  private $arguments = [];
-
   /**
    * This overwrites the NusoapNtlmClient constructor. The domain is removed
    * from the required parameters because it isn't used without ntlm.
@@ -196,55 +190,8 @@ class AfasClient extends NusoapNtlmClient {
   /**
    * Create a new AfasClient to make a call.
    */
-  public function afas_select($data_id) {
-    $client = new AfasClient($this->options);
-    $client->data_id = $data_id;
-    $client->data_type = Connection::DATA_TYPE_GET;
+  public function afas_select($connectorId) {
+    $client = new AfasClient($this, $connectorId);
     return $client;
-  }
-
-  /**
-   * Add a filter to your call.
-   *
-   * For example: ->filter('FIELD', '%STRING%', OP_LIKE)
-   * This wil filter the field: FIELD, and look if the value contains STRING.
-   */
-  public function filter($fieldId, $searchValue = NULL, $operator = 1) {
-    $this->filters['#op'] = $operator;
-    if ($operator != 8
-      && $operator != 9
-      && $searchValue != NULL
-    ) {
-      $this->filters[$fieldId] = $searchValue;
-    }
-    return $this;
-  }
-
-  /**
-   * Add an option to your call.
-   *
-   * Some examples are: Skip, Take, Outputmode and Outputoptions.
-   */
-  public function option($option, $value) {
-    $this->arguments += [$option => $value];
-    return $this;
-  }
-
-  /**
-   * Make the call.
-   */
-  public function execute() {
-    if (empty($this->arguments['Outputoptions'])) {
-      $this->arguments['Outputoptions'] = Connection::GET_OUTPUTOPTIONS_XML_INCLUDE_EMPTY;
-    }
-    if (empty($this->arguments['Outputmode'])) {
-      $this->arguments['Outputmode'] = Connection::GET_OUTPUTMODE_ARRAY;
-    }
-    $connection = new Connection($this);
-    $result = $connection->getData('website_project',
-      ['filters' => $this->filters],
-      $this->data_type,
-      ['options' => $this->arguments]);
-    return $result;
   }
 }
