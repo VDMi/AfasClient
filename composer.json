@@ -1,12 +1,25 @@
 {
   "name": "vdmi/afas-client",
   "description": "Afas client for an easy soap connection.",
+  "type": "package",
   "autoload": {
     "psr-4": {
       "": "src/"
     }
   },
   "repositories": [
+    {
+      "type": "library",
+      "package": {
+        "name": "practicalafas",
+        "version": "dev-master",
+        "source": {
+          "url": "https://github.com/rmuit/PracticalAfas.git",
+          "type": "git",
+          "reference": "origin/master"
+        }
+      }
+    },
     {
       "type": "vcs",
       "url": "https://github.com/rmuit/PracticalAfas.git"
