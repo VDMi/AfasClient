@@ -16,28 +16,6 @@ class Get {
   }
 
   /**
-   * Add a filter to your call.
-   *
-   * For example: ->filter('FIELD', '%STRING%', OP_LIKE)
-   * This wil filter the field: FIELD, and look if the value contains STRING.
-   *
-   * @param string $fieldId
-   * @param string null $searchValue
-   * @param int $operator
-   * @return Get
-   */
-  public function filter($fieldId, $searchValue = NULL, $operator = 1) {
-    $this->filters['#op'] = $operator;
-    if ($operator != 8
-      && $operator != 9
-      && $searchValue != NULL
-    ) {
-      $this->filters[$fieldId] = $searchValue;
-    }
-    return $this;
-  }
-
-  /**
    * Add an option to your call.
    *
    * Some examples are: Skip, Take, Outputmode and Outputoptions.
@@ -67,16 +45,38 @@ class Get {
   }
 
   /**
+   * Add a filter to your call.
+   *
+   * For example: ->filter('FIELD', '%STRING%', OP_LIKE)
+   * This wil filter the field: FIELD, and look if the value contains STRING.
+   *
+   * @param string $fieldId
+   * @param string null $searchValue
+   * @param int $operator
+   * @return Get
+   */
+  public function filter($fieldId, $searchValue = NULL, $operator = 1) {
+    $this->filters['#op'] = $operator;
+    if ($operator != 8
+      && $operator != 9
+      && $searchValue != NULL
+    ) {
+      $this->filters[$fieldId] = $searchValue;
+    }
+    return $this;
+  }
+
+  /**
    * Make the call.
    *
    * @return array $result
    */
   public function execute() {
     if (empty($this->arguments['Outputoptions'])) {
-      $this->arguments['Outputoptions'] = Connection::GET_OUTPUTOPTIONS_XML_INCLUDE_EMPTY;
+      $this->option('Outputoptions', Connection::GET_OUTPUTOPTIONS_XML_INCLUDE_EMPTY);
     }
     if (empty($this->arguments['Outputmode'])) {
-      $this->arguments['Outputmode'] = Connection::GET_OUTPUTMODE_ARRAY;
+      $this->option('Outputmode', Connection::GET_OUTPUTMODE_ARRAY);
     }
     $connection = new Connection($this->afasClient);
     $result = $connection->getData('website_project',

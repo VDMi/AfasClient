@@ -99,9 +99,12 @@ class AfasClient extends NusoapNtlmClient implements Constants {
     $client = new \nusoap_client($endpoint, $options['useWSDL']);
     $client->useHTTPPersistentConnection();
 
-    // Disable SSL
-    $client->setCurlOption(CURLOPT_SSL_VERIFYHOST, 0);
-    $client->setCurlOption(CURLOPT_SSL_VERIFYPEER, 0);
+    $options = $this->options + array('useSSL' => TRUE);
+    if (!$options['useSSL']) {
+      // Disable SSL
+      $client->setCurlOption(CURLOPT_SSL_VERIFYHOST, 0);
+      $client->setCurlOption(CURLOPT_SSL_VERIFYPEER, 0);
+    }
 
     // Specific connection properties can be set by the caller.
     // About timeouts:
