@@ -1,6 +1,6 @@
 <?php
 
-namespace AfasClient;
+use PracticalAfas\Connection;
 
 class Get {
 
@@ -20,6 +20,11 @@ class Get {
    *
    * For example: ->filter('FIELD', '%STRING%', OP_LIKE)
    * This wil filter the field: FIELD, and look if the value contains STRING.
+   *
+   * @param string $fieldId
+   * @param string null $searchValue
+   * @param int $operator
+   * @return Get
    */
   public function filter($fieldId, $searchValue = NULL, $operator = 1) {
     $this->filters['#op'] = $operator;
@@ -36,6 +41,10 @@ class Get {
    * Add an option to your call.
    *
    * Some examples are: Skip, Take, Outputmode and Outputoptions.
+   *
+   * @param string $option
+   * @param mixed $value
+   * @return Get
    */
   public function option($option, $value) {
     $this->arguments += [$option => $value];
@@ -43,7 +52,24 @@ class Get {
   }
 
   /**
+   * Request an amount of rows, starting from a row.
+   *
+   * Skip can be left empty to start from 0.
+   *
+   * @param int $take
+   * @param int $skip
+   * @return Get
+   */
+  public function range($take, $skip = 0) {
+    $this->option('Take', $take);
+    $this->option('Skip', $skip);
+    return $this;
+  }
+
+  /**
    * Make the call.
+   *
+   * @return array $result
    */
   public function execute() {
     if (empty($this->arguments['Outputoptions'])) {

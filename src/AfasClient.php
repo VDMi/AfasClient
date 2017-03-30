@@ -1,11 +1,8 @@
 <?php
 
-namespace AfasClient;
-
-use PracticalAfas\Connection;
 use PracticalAfas\NusoapNtlmClient;
 
-class AfasClient extends NusoapNtlmClient {
+class AfasClient extends NusoapNtlmClient implements Constants {
 
   /**
    * This overwrites the NusoapNtlmClient constructor. The domain is removed
@@ -189,9 +186,12 @@ class AfasClient extends NusoapNtlmClient {
 
   /**
    * Create a new AfasClient to make a call.
+   *
+   * @param string $connectorId
+   * @return \Get
    */
-  public function afas_select($connectorId) {
-    $client = new AfasClient($this, $connectorId);
+  public function get($connectorId) {
+    $client = new Get($this, $connectorId);
     return $client;
   }
 }
