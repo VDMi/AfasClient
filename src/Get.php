@@ -4,7 +4,7 @@ use PracticalAfas\Connection;
 
 class Get {
 
-  private $afasClient = null;
+  private $afasClient = NULL;
   private $dataType = 'get';
   private $connectionId = '';
   private $filters = [];
@@ -63,6 +63,11 @@ class Get {
     ) {
       $this->filters[$fieldId] = $searchValue;
     }
+    return $this;
+  }
+
+  public function orderBy($fieldId, $op) {
+    $this->option('Index', '<Field FieldId="' . $fieldId . '" OperatorType="' . $op . '"/>');
     return $this;
   }
 

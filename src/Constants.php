@@ -59,4 +59,8 @@ interface Constants {
   // Constants representing the 'Metadata' option for GetConnectors.
   const GET_METADATA_NO = 0;
   const GET_METADATA_YES = 1;
+
+  // Constants for the index operator
+  const OP_DESC = 0;
+  const OP_ASC = 1;
 }

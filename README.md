@@ -16,15 +16,16 @@ $this->afas = new AfasClient([
 ```
 To make the call you have to construct a query. This will be done by chaining functions.
 The functions you can use are: 
-* option
 * range
 * filter
-* _todo: sort_
+* orderBy
+* option
 ```
 $query = $this->afas->get('some_connector')
       ->range(10, 10) // Take 10, Skip 10.
       ->filter('title', 'WIP:%', AfasClient::OP_STARTS_WITH) // Title starts with "WIP:".
-      ->option('Outputmode', Connection::GET_OUTPUTMODE_ARRAY) // Return array.
+      ->orderBy('title', AfasClient::OP_ASC) // Order by title ascending.
+      ->option('Outputmode', AfasClient::GET_OUTPUTMODE_ARRAY) // Return array.
 ```
 Finnaly you want to make the call. 
 ```
